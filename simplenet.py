@@ -148,32 +148,30 @@ class Pip(object):
 
 def get_data():
     train = np.load('./data/mnist/traindata.npy')
-    trainlabel = np.load('./data/mnist//trainlabellogit.npy')
-    val = np.load('./data/mnist//valdata.npy')
+    trainlabel = np.load('./data/mnist/trainlabellogit.npy')
+    val = np.load('./data/mnist/valdata.npy')
     vallabel = np.load('./data/mnist/vallabellogit.npy')
     return (train, trainlabel, val, vallabel)
 
 def main():
     train_x, train_y, val_x, val_y = get_data()
-    D_in = 28 * 28
-    D_hidden = 28*28
-    D_out = 10
+    D_in = 28 * 28        # 图片像素 二维矩阵转换成一纬
+    D_hidden = 28 * 28    # 全连接的神经元节点
+    D_out = 10            # 输出的神经元节点
 
     layers = [Linear(D_in, D_hidden), ReLU(), Linear(D_hidden, D_out)]
-    pip = Pip(layers)
-    optim = Optim(pip)
-    criterion = Loss()
+    pip = Pip(layers)     # 生成训练管道
+    optim = Optim(pip)    # 优化器，优化器需要用到 训练参数
+    criterion = Loss()    # 损失函数
 
-    running_loss = 0.0
     val_batches = val_x.shape[0]
     for batch in tqdm(range(train_x.shape[0])):
         optim.zero_grad()                       # 反向传播的参数初始化
         input = train_x[batch:batch + 1] / 255  # 数据归一化
         label = train_y[batch:batch + 1]
 
-        pred = pip.forward(input)            # 前向传播
+        pred = pip.forward(input)               # 前向传播
         loss = criterion.forward(pred, label)   # 损失评估
-        running_loss += loss
         grad = criterion.backward()             # 后向传播
         pip.backward(grad)
         optim.setup()                           # 优化
