@@ -147,10 +147,10 @@ class Pip(object):
 
 
 def get_data():
-    train = np.load('./examples/mnist/data/traindata.npy')
-    trainlabel = np.load('./examples/mnist/data/trainlabellogit.npy')
-    val = np.load('./examples/mnist/data/valdata.npy')
-    vallabel = np.load('./examples/mnist/data/vallabellogit.npy')
+    train = np.load('./data/mnist/traindata.npy')
+    trainlabel = np.load('./data/mnist//trainlabellogit.npy')
+    val = np.load('./data/mnist//valdata.npy')
+    vallabel = np.load('./data/mnist/vallabellogit.npy')
     return (train, trainlabel, val, vallabel)
 
 def main():

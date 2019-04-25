@@ -1,2 +1,3 @@
-# simplenet
-simple neural network demo
+#目的
+为了理解深度学习框架的大致机理
+
